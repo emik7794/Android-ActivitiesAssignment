@@ -1,5 +1,6 @@
 package famaf.unc.edu.ar.activitiesassignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 
 public class NewsActivity extends AppCompatActivity {
+
+    static final int LOGIN_ACTIVITY = 1; // requestCode
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,11 @@ public class NewsActivity extends AppCompatActivity {
         if (id == R.id.action_sign_in) {
             NewsActivityFragment newsfragment = (NewsActivityFragment)
                     getSupportFragmentManager().findFragmentById(R.id.news_activity_fragment_id);
+            // Creo el intent para comunicarme con la actividad LoginActivity
+            Intent intentLogin = new Intent(this, LoginActivity.class);
+            // startActivityForResult(Intent intent, int requestCode)
+            startActivityForResult(intentLogin, LOGIN_ACTIVITY);
+
             TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
             textView.setText("User XXXX logged in");
             return true;
