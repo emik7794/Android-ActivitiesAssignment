@@ -3,6 +3,7 @@ package famaf.unc.edu.ar.activitiesassignment;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,12 +60,27 @@ public class LoginActivity extends AppCompatActivity  {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                // attemptLogin();  // Todavia no es necesario implementar.
+                finish(); // Llamo al metodo finish() para que finalice la actividad.
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    // Sobreescribo el metodo finish(), al invocarse este metodo finaliza la actividad.
+    @Override
+    public void finish() {
+        // Creo el intent del usuario para almacenar y enviar sus datos a NewsActivity
+        Intent intentUser = new Intent();
+        // Extraigo los datos de la vista mEmailView
+        String user_name = mEmailView.getText().toString();
+        // Almaceno los datos en intentUser
+        intentUser.putExtra("user_name", user_name);
+        // Envio los datos a la actividad NewsActivity
+        setResult(RESULT_OK, intentUser);
+        super.finish();
     }
 
     /**

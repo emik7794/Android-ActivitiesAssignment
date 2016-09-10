@@ -43,11 +43,24 @@ public class NewsActivity extends AppCompatActivity {
             // startActivityForResult(Intent intent, int requestCode)
             startActivityForResult(intentLogin, LOGIN_ACTIVITY);
 
-            TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
-            textView.setText("User XXXX logged in");
+            //TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
+            //textView.setText("User XXXX logged in");
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Sobrescribo el metodo onActivityResult para recibir los datos de LoginActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == LOGIN_ACTIVITY) {
+            if(resultCode == RESULT_OK) {
+                String user_name = data.getExtras().getString("user_name");
+                TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
+                textView.setText("User " + user_name + " logged in");
+            }
+        }
     }
 }
